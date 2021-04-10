@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+
+{% block content%}
+
+<div class="container">
+    <div class="p-4 m4 border rounded pt-4">
+        <div class="col-lg-5 mx-auto ">
+            <h3 class="alert alert-light border rounded">Create an Account</h3>
+            <form action="/signup" method="POST">
+              {% csrf_token %}
+
+              {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{error}}
+                {% endif %}
+                  <p></p>
+                  <p class="mb-0"></p>
+                </div>
+                <div class="form-group">
+                    <label for="">First name</label>
+                    <input required type="text" value="{{values.firstname}}" name="firstname" id="firstname" class="form-control form-control-sm" placeholder="first name" aria-describedby="helpId">
+                  </div>
+
+
+              <div class="form-group">
+                <label for="">Last name</label>
+                <input required type="text" value="{{values.lastname}}" name="lastname" id="lastname" class="form-control form-control-sm" placeholder="last name" aria-describedby="helpId">
+              </div>
+
+              
+              
+              <div class="form-group">
+                <label for="">Email Address</label>
+                <input required type="email" value="{{values.email}}" name="email" id="email" class="form-control form-control-sm" placeholder="hello@hi.com" aria-describedby="helpId">
+              </div>
+
+              <div class="form-group">
+                <label for="">Phone number</label>
+                <input required type="text" value="{{values.phone}}" name="phone" id="phone" class="form-control form-control-sm" placeholder="1023456789" aria-describedby="helpId">
+              </div>
+              <div class="form-group">
+                <label for="">Password</label>
+                <input required type="password"  name="password" id="password" class="form-control form-control-sm" placeholder="********" aria-describedby="helpId">
+              </div>
+              
+              <input class="btn btn-info"  type="submit" value="sigup">
+
+              <div class="form group">
+
+
+              </div>
+              
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

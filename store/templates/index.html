@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load cart %}
+
+<div class="container-fluid mt-3">
+   <div class="row">
+    
+
+
+    <div class="col-lg-2 mx-auto" >
+     <i class="fa fa-align-left" aria-hidden="true">
+      <div class="list-group" alin >
+        <a href="/?" class="list-group-item list-group-item-action">All</a>
+        {% for cat in cateogry %}
+        <a href="/?cateogry={{cat.id}}" class="list-group-item list-group-item-action">{{ cat.name }}</a>
+        {% endfor %}
+      </div>
+     </i>
+
+    </div>
+
+    
+
+
+     <div id="products" class="col-lg-9 mx-auto" >
+      <div class="row mx-auto">
+        {%  for pro in products  %}
+           <div class="card mx-auto mb-3" id={{pro.id}} style="width: 18rem;">
+          <img src="{{pro.image.url}}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <P class="card-title">{{pro.name}}</P>
+              <p class="card-text"><b>{{pro.price}}</b>.</p>
+              <p class="card-text">{{pro.cateogry.name}}</p>
+
+            
+              
+
+          
+         <div class="card-footer p-0 row nu-gutter">
+
+          {% if pro|is_in_cart:request.session.cart %}
+        </div>
+        <div class="row">
+
+          <form action="/#{{pro.id}}" method="POST" class="col-2">
+
+            {% csrf_token %}
+            
+          <input  type="text" name="product" id="product" hidden value="{{pro.id}}">
+          <input  type="text" name="remove"  id="remove" hidden value="True">
+          <input type="submit" class=" btn btn-block btn-secondary" value="-">
+         </form>
+
+
+          <div class="text-center col">{{pro|cart_count:request.session.cart}} in cart</div>
+
+
+         <form action="/#{{pro.id}}" method="POST" class="col-2">
+
+            {% csrf_token %}
+
+          <input  type="text" name="product" id="product" hidden value="{{pro.id}}">
+          <input type="submit" class=" btn btn-block btn-secondary" value="+">
+         </form>
+
+
+        </div>
+          </div>
+
+
+        {% else %}
+              <form action="/#{{pro.id}}" method="POST" class="btn-block">
+
+                {% csrf_token %}
+
+                <input  type="text" name="product" id="product" hidden value="{{pro.id}}">
+                <input  type="submit" class="float-right btn btn-light border form-control" value="Add to Cart">
+              </form> 
+           {% endif %}
+          
+            
+
+           </div>
+        {% endfor %}
+        </div>
+     </div>
+
+     
+   </div>
+</div>
+{% endblock %}
